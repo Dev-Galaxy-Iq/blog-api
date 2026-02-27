@@ -1,10 +1,25 @@
 import Elysia from "elysia";
-import { authMeBodySchema } from "./model";
 import { authMeService } from "./service";
+import jwt from "@elysiajs/jwt";
+import { auth_plugin } from "../../../plugins/auth-plugin";
 
 export const authMeRoute = new Elysia()
-  .post("/me", ({ body }) => {
-    return authMeService()
+  .use(
+    jwt({
+      name: 'accesstokenjwt',
+      secret: Bun.env.ACCESS_SECERET!
+    })
+  )
+  .use(
+    jwt({
+      name: 'refreshtokenjwt',
+      secret: Bun.env.REFRESH_SECERET!
+    })
+  )
+  .use(auth_plugin)
+  .post("/me", ({ body, user }) => {
+
+    return user
   }, {
-    body: authMeBodySchema
+    // body: authMeBodySchema
   })

@@ -38,7 +38,6 @@ export const authLoginRoute = new Elysia()
     })
 
     return res
-
   }, {
     body: authLoginReqBodySchema,
   })
