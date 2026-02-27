@@ -9,7 +9,33 @@ datasource db {
 
 model User {
   id  String @id @default(uuid())
-  email String
+  email String @unique
   password String
   name String
+  username String @unique
+
+  posts Post[]
+  comments UserComment[]
 }
+
+
+model UserComment{
+  id  Int @id @default(autoincrement())
+
+  user User  @relation(fields: [username], references: [username])
+  username String
+
+  post  Post  @relation(fields: [postId], references: [id])
+  postId String
+}
+
+model Post{
+  id  String @id @default(uuid())
+  content String
+  author  User  @relation(fields: [authorusername], references: [username])
+  authorusername String
+
+  comments UserComment[]
+}
+
+

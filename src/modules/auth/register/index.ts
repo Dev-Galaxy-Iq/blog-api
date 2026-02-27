@@ -1,10 +1,10 @@
 import Elysia from "elysia";
-import { loginReqBodySchema } from "./model";
-import { authLoginService } from "./service";
+import { authRegisterService } from "./service";
+import { authRegisterBodySchema } from "./model";
 
 export const authRegisterRoute = new Elysia()
-  .post("/post", ({ body }) => {
-    return authLoginService()
+  .post("/register", ({ body }) => {
+    return authRegisterService(body)
   }, {
-    body: loginReqBodySchema
+    body: authRegisterBodySchema
   })
