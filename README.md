@@ -1,19 +1,38 @@
 # Elysia with Bun runtime
-
-<<<<<<< HEAD
 blogging website backend api built using elysia and prisma orm.
-=======
-## Getting Started
-To get started with this template, simply paste this command into your terminal:
-```bash
-bun create elysia ./elysia-example
+
+
+
+to run the app make sure to setup docker first then inside root directory run :
+```
+docker compose up
 ```
 
-## Development
-To start the development server run:
-```bash
-bun run dev
+install dependencies:
+```
+bun install
 ```
 
-Open http://localhost:4000/ with your browser to see the result.
->>>>>>> main
+push prisma schema to the postgressql db in docker :
+```
+bunx prisma db push
+```
+
+generate prisma client:
+```
+bunx prisma generate
+```
+
+now run this to start the app:
+```
+bun dev
+```
+
+api documentation using scalar is available at:
+```
+http://localhost:4000/openapi
+```
+
+
+
+TODO: define project structure here later.
