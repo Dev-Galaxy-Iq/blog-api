@@ -11,18 +11,25 @@ export const authRegisterService = async (data: authRegisterBodySchemaType) => {
         { email: data.email },
         { username: data.username }
       ]
-
     }
   })
 
-  if (user?.id) throw new ApiError("this user already exists!!!", 409)
+  if (user?.id) throw new ApiError("account with this username or email address already exists!", 409)
+
+  const hashedPassword = await Bun.password.hash(data.password)
 
   try {
     const addUser = await db.user.create({
-      data
+      data: {
+        ...data,
+        password: hashedPassword
+      }
     })
 
-    return addUser
+    return {
+      ...addUser,
+      password: undefined
+    }
   } catch (error) {
     throw Error("error happened while registering this user")
   }
