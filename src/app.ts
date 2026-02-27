@@ -1,11 +1,17 @@
 import { Elysia } from "elysia";
-import { authRoutes } from "./modules/auth/route";
+import cors from "@elysiajs/cors";
+import openapi from "@elysiajs/openapi";
+import { authRoutes } from "./modules/auth";
 
 const app = new Elysia()
+  .use(cors({
+    origin: "*",
+    credentials: true
+  }))
   .use(authRoutes)
-  .get("/health", () => "Hello Elysia")
+  .use(openapi())
   .listen(4000);
 
 console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+  `http://${app.server?.hostname}:${app.server?.port}/openapi`
 );
