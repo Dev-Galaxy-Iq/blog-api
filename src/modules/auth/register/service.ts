@@ -1,5 +1,6 @@
 import { authRegisterBodySchemaType } from "./model";
 import { db } from "../../../lib/db";
+import { ApiError } from "../../../lib/global-error";
 
 export const authRegisterService = async (data: authRegisterBodySchemaType) => {
 
@@ -14,7 +15,7 @@ export const authRegisterService = async (data: authRegisterBodySchemaType) => {
     }
   })
 
-  if (user?.id) throw Error("this user already exists")
+  if (user?.id) throw new ApiError("this user already exists!!!", 409)
 
   try {
     const addUser = await db.user.create({

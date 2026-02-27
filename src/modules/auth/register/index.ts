@@ -8,3 +8,5 @@ export const authRegisterRoute = new Elysia()
   }, {
     body: authRegisterBodySchema
   })
+
+

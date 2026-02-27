@@ -1,14 +1,30 @@
 import { Elysia } from "elysia";
-import cors from "@elysiajs/cors";
+
 import openapi from "@elysiajs/openapi";
-import { authRoutes } from "./modules/auth";
+import { allRoutes } from "./modules";
+import cors from "@elysiajs/cors";
+import { ApiError } from "./lib/global-error";
 
 const app = new Elysia()
   .use(cors({
     origin: "*",
     credentials: true
   }))
-  .use(authRoutes)
+  .error({
+    ApiError
+  })
+
+// for reference : https://elysiajs.com/patterns/error-handling
+app.onError(({ error, set }) => {
+  if (error instanceof ApiError) {
+    set.status = error.code;
+    return { success: false, message: error.message, data: null };
+  }
+  set.status = 500;
+  return { success: false, message: "Internal server error", data: null };
+})
+
+  .use(allRoutes)
   .use(openapi())
   .listen(4000);
 
