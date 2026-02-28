@@ -36,9 +36,6 @@ export const auth_plugin = (app: Elysia) => app
       },
     })
 
-    console.log(isValid.sub);
-
-
     return {
       user: {
         ...user, password: undefined
