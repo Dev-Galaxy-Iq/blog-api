@@ -28,11 +28,16 @@ export const auth_plugin = (app: Elysia) => app
     if (!isValid) throw new ApiError("Unauthernized", 401)
 
 
+
+
     const user = await db.user.findFirst({
       where: {
         id: isValid.sub
       },
     })
+
+    console.log(isValid.sub);
+
 
     return {
       user: {

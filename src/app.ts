@@ -1,9 +1,9 @@
 import { Elysia } from "elysia";
 
 import openapi from "@elysiajs/openapi";
-import { allRoutes } from "./modules";
 import cors from "@elysiajs/cors";
 import { ApiError } from "./lib/global-error";
+import { allRoutes } from "./modules";
 
 const app = new Elysia()
   .use(cors({
