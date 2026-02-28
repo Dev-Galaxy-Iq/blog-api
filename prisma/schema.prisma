@@ -13,29 +13,46 @@ model User {
   password String
   name String
   username String @unique
+  avatarUrl String?
 
   posts Post[]
   comments UserComment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 
 model UserComment{
   id  Int @id @default(autoincrement())
 
-  user User  @relation(fields: [username], references: [username])
-  username String
+  message String
+
+  user User  @relation(fields: [userId], references: [id])
+  userId String
 
   post  Post  @relation(fields: [postId], references: [id])
   postId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
+
 
 model Post{
   id  String @id @default(uuid())
+  
+  title String
   content String
-  author  User  @relation(fields: [authorusername], references: [username])
-  authorusername String
+  thumbnailUrl String?
+
+  author  User  @relation(fields: [authorId], references: [id])
+  authorId String
 
   comments UserComment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 
