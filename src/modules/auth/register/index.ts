@@ -3,7 +3,12 @@ import { authRegisterService } from "./service";
 import { authRegisterBodySchema } from "./model";
 
 
-export const authRegisterRoute = new Elysia()
+export const authRegisterRoute = new Elysia({
+  detail: {
+    summary: "register"
+  }
+
+})
   .post("/register", ({ body }) => {
     return authRegisterService(body)
   }, {

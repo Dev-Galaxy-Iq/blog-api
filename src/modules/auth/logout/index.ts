@@ -2,7 +2,11 @@ import Elysia from "elysia";
 import jwt from "@elysiajs/jwt";
 import { auth_plugin } from "../../../plugins/auth-plugin";
 
-export const authLogoutRoute = new Elysia()
+export const authLogoutRoute = new Elysia({
+  detail: {
+    summary: "Logout"
+  }
+})
   .use(
     jwt({
       name: 'accesstokenjwt',

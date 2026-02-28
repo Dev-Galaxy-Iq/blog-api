@@ -4,7 +4,11 @@ import { authLoginReqBodySchema } from "./model";
 import jwt from "@elysiajs/jwt";
 import { ApiError } from "../../../lib/global-error";
 
-export const authLoginRoute = new Elysia()
+export const authLoginRoute = new Elysia({
+  detail: {
+    summary: "login"
+  }
+})
   .use(
     jwt({
       name: 'accesstokenjwt',

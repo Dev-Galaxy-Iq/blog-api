@@ -1,9 +1,12 @@
 import Elysia from "elysia";
-import { authMeService } from "./service";
 import jwt from "@elysiajs/jwt";
 import { auth_plugin } from "../../../plugins/auth-plugin";
 
-export const authMeRoute = new Elysia()
+export const authMeRoute = new Elysia({
+  detail: {
+    summary: "me"
+  }
+})
   .use(
     jwt({
       name: 'accesstokenjwt',
@@ -17,9 +20,8 @@ export const authMeRoute = new Elysia()
     })
   )
   .use(auth_plugin)
-  .post("/me", ({ body, user }) => {
+  .post("/me", ({ user }) => {
 
     return user
   }, {
-    // body: authMeBodySchema
   })
