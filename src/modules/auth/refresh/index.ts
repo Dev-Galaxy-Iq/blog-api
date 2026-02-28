@@ -12,13 +12,15 @@ export const authRefreshRoute = new Elysia({
   .use(
     jwt({
       name: 'accesstokenjwt',
-      secret: Bun.env.ACCESS_SECERET!
-    })
+      secret: Bun.env.ACCESS_SECERET!,
+      exp: "15m"
+    },)
   )
   .use(
     jwt({
       name: 'refreshtokenjwt',
-      secret: Bun.env.REFRESH_SECERET!
+      secret: Bun.env.REFRESH_SECERET!,
+      exp: "7d"
     })
   )
   .get("/refresh", async ({ refreshtokenjwt, accesstokenjwt, cookie: { refresh_token, access_token } }) => {
@@ -36,8 +38,12 @@ export const authRefreshRoute = new Elysia({
     if (!new_access_token) throw new ApiError("internal server error, 321412", 500)
 
     // sign this generated token to the cookie
-    access_token.set({
-      value: new_access_token
+    refresh_token.set({
+      value: new_access_token,
+      httpOnly: true,
+      path: '/auth/refresh',
+      maxAge: 60 * 60 * 24 * 7,
+      sameSite: "strict"
     })
 
 

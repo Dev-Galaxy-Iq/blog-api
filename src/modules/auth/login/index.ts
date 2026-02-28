@@ -13,13 +13,15 @@ export const authLoginRoute = new Elysia({
   .use(
     jwt({
       name: 'accesstokenjwt',
-      secret: Bun.env.ACCESS_SECERET!
+      secret: Bun.env.ACCESS_SECERET!,
+      exp: "15m"
     })
   )
   .use(
     jwt({
       name: 'refreshtokenjwt',
-      secret: Bun.env.REFRESH_SECERET!
+      secret: Bun.env.REFRESH_SECERET!,
+      exp: "7d"
     })
   )
   .post("/login", async ({ body, set, refreshtokenjwt, accesstokenjwt, cookie: { access_token, refresh_token } }) => {
@@ -37,13 +39,18 @@ export const authLoginRoute = new Elysia({
     access_token.set({
       value: at_jwt,
       httpOnly: true,
-      path: '/'
+      path: '/',
+      secure: true,
+      maxAge: 60 * 15,
+      sameSite: "strict"
     })
 
     refresh_token.set({
       value: rt_jwt,
       httpOnly: true,
-      path: '/'
+      path: '/auth/refresh',
+      maxAge: 60 * 60 * 24 * 7,
+      sameSite: "strict"
     })
 
     // FIX: Manually force JSON content type to override the string-fallback bug

@@ -7,13 +7,15 @@ export const auth_plugin = (app: Elysia) => app
   .use(
     jwt({
       name: 'accesstokenjwt',
-      secret: Bun.env.ACCESS_SECERET!
-    })
+      secret: Bun.env.ACCESS_SECERET!,
+      exp: "15m"
+    },)
   )
   .use(
     jwt({
       name: 'refreshtokenjwt',
-      secret: Bun.env.REFRESH_SECERET!
+      secret: Bun.env.REFRESH_SECERET!,
+      exp: "7d"
     })
   )
   .derive(async ({ accesstokenjwt, cookie: { access_token, refresh_token } }) => {
@@ -26,9 +28,6 @@ export const auth_plugin = (app: Elysia) => app
 
     // the access token jwt is not valid
     if (!isValid) throw new ApiError("Unauthernized", 401)
-
-
-
 
     const user = await db.user.findFirst({
       where: {
