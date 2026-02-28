@@ -20,8 +20,8 @@ export const auth_plugin = (app: Elysia) => app
 
     // check if the access token cookie exists
     if (!access_token) throw new ApiError("Unauthernized request", 401)
-
     // if it exists then check if its valid
+
     const isValid = await accesstokenjwt.verify(access_token.value?.toString())
 
     // the access token jwt is not valid

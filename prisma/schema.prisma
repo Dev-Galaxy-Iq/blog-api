@@ -14,7 +14,7 @@ model User {
   name String
   username String @unique
 
-  posts Post[] 
+  posts Post[]
   comments UserComment[]
 }
 
