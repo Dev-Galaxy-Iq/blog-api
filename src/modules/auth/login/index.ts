@@ -3,6 +3,7 @@ import { authLoginService } from "./service";
 import { authLoginReqBodySchema } from "./model";
 import jwt from "@elysiajs/jwt";
 import { ApiError } from "../../../lib/global-error";
+import { ApiResponse } from "../../../lib/global-response";
 
 export const authLoginRoute = new Elysia({
   detail: {
@@ -41,7 +42,7 @@ export const authLoginRoute = new Elysia({
       value: refresh_token_jwt,
     })
 
-    return res
+    return ApiResponse(res)
   }, {
     body: authLoginReqBodySchema,
   })
