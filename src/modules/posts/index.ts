@@ -16,3 +16,4 @@ export const postsRoutes = new Elysia({
   .use(postsShowEndpoint)
   .use(postsUpdateEndpoint)
   .use(postsRemoveEndpoint)
+  .use(postsUpdateEndpoint)
