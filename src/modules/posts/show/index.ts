@@ -7,7 +7,6 @@ export const postsShowEndpoint = new Elysia({
     summary: "show post details"
   }
 })
-
   .get("/:postId", ({ params }) => {
     return showPostService(params)
   }, {

@@ -24,6 +24,7 @@ export const authRefreshRoute = new Elysia({
     })
   )
   .get("/refresh", async ({ refreshtokenjwt, accesstokenjwt, cookie: { refresh_token, access_token } }) => {
+
     // check if refresh tokn exits
     if (!refresh_token.value) throw new ApiError("missing refresh token", 401)
 
@@ -35,17 +36,30 @@ export const authRefreshRoute = new Elysia({
     const new_access_token = await accesstokenjwt.sign({
       sub: validRefresh.sub
     })
-    if (!new_access_token) throw new ApiError("internal server error, 321412", 500)
+
+    // now generate new refresh token
+    const new_refresh_token = await refreshtokenjwt.sign({
+      sub: validRefresh.sub
+    })
+    if (!new_refresh_token || !new_access_token) throw new ApiError("internal server error, 321412", 500)
 
     // sign this generated token to the cookie
     access_token.set({
       value: new_access_token,
       httpOnly: true,
-      path: '/auth/refresh',
+      path: '/',
       maxAge: 60 * 60 * 24 * 7,
       sameSite: "strict"
     })
 
+    // sign this generated token to the cookie
+    refresh_token.set({
+      value: new_refresh_token,
+      httpOnly: true,
+      path: '/auth/refresh',
+      maxAge: 60 * 60 * 24 * 7,
+      sameSite: "strict"
+    })
 
 
     return ApiResponse(null)

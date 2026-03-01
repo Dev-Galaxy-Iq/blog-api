@@ -2,6 +2,7 @@ import jwt from "@elysiajs/jwt";
 import Elysia from "elysia";
 import { ApiError } from "../lib/global-error";
 import { db } from "../lib/db";
+import { log } from "node:console";
 
 export const auth_plugin = (app: Elysia) => app
   .use(
@@ -26,6 +27,7 @@ export const auth_plugin = (app: Elysia) => app
 
     const isValid = await accesstokenjwt.verify(access_token.value?.toString())
 
+    console.log(isValid);
     // the access token jwt is not valid
     if (!isValid) throw new ApiError("Unauthernized", 401)
 
@@ -34,6 +36,8 @@ export const auth_plugin = (app: Elysia) => app
         id: isValid.sub
       },
     })
+
+
 
     return {
       user: {

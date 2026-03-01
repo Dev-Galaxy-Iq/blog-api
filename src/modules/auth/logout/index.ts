@@ -31,7 +31,4 @@ export const authLogoutRoute = new Elysia({
       message: "successfully logged out",
       data: null
     }
-
-
-  }, {
-  })
+  }, {})
