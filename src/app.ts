@@ -4,6 +4,7 @@ import openapi from "@elysiajs/openapi";
 import cors from "@elysiajs/cors";
 import { ApiError } from "./lib/global-error";
 import { allRoutes } from "./modules";
+import { treaty } from "@elysiajs/eden";
 
 const app = new Elysia()
   .use(cors({
@@ -12,22 +13,23 @@ const app = new Elysia()
   }))
   .error({
     ApiError
+  }).onError(({ error, set }) => {
+    if (error instanceof ApiError) {
+      set.status = error.code;
+      return { success: false, message: error.message, data: null };
+    }
+    set.status = 500;
+    return { success: false, message: "Internal server error", data: null };
   })
-
-// for reference : https://elysiajs.com/patterns/error-handling
-app.onError(({ error, set }) => {
-  if (error instanceof ApiError) {
-    set.status = error.code;
-    return { success: false, message: error.message, data: null };
-  }
-  set.status = 500;
-  return { success: false, message: "Internal server error", data: null };
-})
 
   .use(allRoutes)
   .use(openapi())
-  .listen(4000);
 
+
+export const api = treaty(app)
+
+
+app.listen(4000);
 console.log(
   `http://${app.server?.hostname}:${app.server?.port}/openapi`
 );

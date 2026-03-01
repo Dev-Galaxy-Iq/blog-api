@@ -1,6 +1,7 @@
 import { authRegisterBodySchemaType } from "./model";
 import { db } from "../../../lib/db";
 import { ApiError } from "../../../lib/global-error";
+import { ApiResponse } from "../../../lib/global-response";
 
 export const authRegisterService = async (data: authRegisterBodySchemaType) => {
 
@@ -26,10 +27,11 @@ export const authRegisterService = async (data: authRegisterBodySchemaType) => {
       }
     })
 
-    return {
+    return ApiResponse({
       ...addUser,
       password: undefined
     }
+    )
   } catch (error) {
     throw Error("error happened while registering this user")
   }
