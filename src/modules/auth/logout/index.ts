@@ -22,9 +22,8 @@ export const authLogoutRoute = new Elysia({
   .use(auth_plugin)
   .post("/logout", ({ cookies: { accessToken, refreshToken } }) => {
 
-    accessToken.remove()
-    refreshToken.remove()
-
+    accessToken.remove();
+    refreshToken.remove();
 
     return {
       success: true,

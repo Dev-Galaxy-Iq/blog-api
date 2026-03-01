@@ -40,6 +40,7 @@ export const authLoginRoute = new Elysia({
       value: at_jwt,
       httpOnly: true,
       path: '/',
+      domain: "",
       secure: true,
       maxAge: 60 * 15,
       sameSite: "strict"
@@ -48,7 +49,9 @@ export const authLoginRoute = new Elysia({
     refresh_token.set({
       value: rt_jwt,
       httpOnly: true,
-      path: '/auth/refresh',
+      domain: "",
+      secure: true,
+      path: '/',
       maxAge: 60 * 60 * 24 * 7,
       sameSite: "strict"
     })
