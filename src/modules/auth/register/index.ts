@@ -7,7 +7,6 @@ export const authRegisterRoute = new Elysia({
   detail: {
     summary: "register"
   }
-
 })
   .post("/register", ({ body }) => {
     return authRegisterService(body)

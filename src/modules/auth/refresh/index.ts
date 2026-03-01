@@ -38,7 +38,7 @@ export const authRefreshRoute = new Elysia({
     if (!new_access_token) throw new ApiError("internal server error, 321412", 500)
 
     // sign this generated token to the cookie
-    refresh_token.set({
+    access_token.set({
       value: new_access_token,
       httpOnly: true,
       path: '/auth/refresh',
