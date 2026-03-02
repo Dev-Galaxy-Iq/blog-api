@@ -13,7 +13,6 @@ export const addCommentSerivce = async (params: addCommentParamsSchemaType, body
     }
   })
 
-  console.log(post);
   if (!post?.id) throw new ApiError("This post doesn't exists.", 403)
 
 

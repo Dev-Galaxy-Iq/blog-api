@@ -10,8 +10,6 @@ export const postsAddEndpoint = new Elysia({
 })
   .use(auth_plugin)
   .post("/add", ({ body, user }) => {
-    console.log(user);
-
     return addPostService(body, user.id)
   }, {
     body: addPostBodySchema

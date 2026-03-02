@@ -11,6 +11,6 @@ export const addCommentRoute = new Elysia({
   .post("/:postId", async ({ body, params, user }) => {
     return addCommentSerivce(params, body, user.id)
   }, {
-    query: addCommentParamsSchema,
+    params: addCommentParamsSchema,
     body: addCommentBodySchema
   })

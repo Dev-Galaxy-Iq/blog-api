@@ -15,12 +15,20 @@ const app = new Elysia()
   })
 
 // for reference : https://elysiajs.com/patterns/error-handling
-app.onError(({ error, set }) => {
+app.onError(({ error, set, code }) => {
+
+  if (code === "VALIDATION") return {
+    success: false,
+    message: error.all.map(i => i.summary).join(", "),
+    data: null
+  }
+
   if (error instanceof ApiError) {
     set.status = error.code;
     return { success: false, message: error.message, data: null };
   }
   set.status = 500;
+
   return { success: false, message: "Internal server error", data: null };
 })
 
