@@ -2,6 +2,7 @@ import Elysia from "elysia";
 import jwt from "@elysiajs/jwt";
 import { ApiResponse } from "../../../lib/global-response";
 import { ApiError } from "../../../lib/global-error";
+import { authRefreshResSchema } from "./model";
 
 
 export const authRefreshRoute = new Elysia({
@@ -63,4 +64,6 @@ export const authRefreshRoute = new Elysia({
 
 
     return ApiResponse(null)
+  }, {
+    response: authRefreshResSchema
   })

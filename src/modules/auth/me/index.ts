@@ -2,6 +2,7 @@ import Elysia from "elysia";
 import jwt from "@elysiajs/jwt";
 import { auth_plugin } from "../../../plugins/auth-plugin";
 import { ApiResponse } from "../../../lib/global-response";
+import { authMeResSchema } from "./model";
 
 export const authMeRoute = new Elysia({
   detail: {
@@ -23,4 +24,6 @@ export const authMeRoute = new Elysia({
   .use(auth_plugin)
   .post("/me", ({ user }) => {
     return ApiResponse(user)
+  }, {
+    response: authMeResSchema
   })

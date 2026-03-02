@@ -1,4 +1,4 @@
 
 import { t } from "elysia";
-
-// export const authMeBodySchema = t.Object({})
+import { ResponseSchema } from "../../../lib/global-response";
+export const authRefreshResSchema = ResponseSchema(t.Null())

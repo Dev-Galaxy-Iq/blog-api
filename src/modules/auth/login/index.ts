@@ -1,6 +1,6 @@
 import Elysia, { t } from "elysia";
 import { authLoginService } from "./service";
-import { authLoginReqBodySchema } from "./model";
+import { authLoginReqBodySchema, authLoginResSchema } from "./model";
 import jwt from "@elysiajs/jwt";
 import { ApiError } from "../../../lib/global-error";
 import { ApiResponse } from "../../../lib/global-response";
@@ -63,4 +63,5 @@ export const authLoginRoute = new Elysia({
     return ApiResponse(res)
   }, {
     body: authLoginReqBodySchema,
+    response: authLoginResSchema
   })

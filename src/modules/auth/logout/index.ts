@@ -1,6 +1,9 @@
-import Elysia from "elysia";
+import Elysia, { t } from "elysia";
 import jwt from "@elysiajs/jwt";
 import { auth_plugin } from "../../../plugins/auth-plugin";
+import { authLogoutResSchema } from "./model";
+import { ApiResponse, ResponseSchema } from "../../../lib/global-response"
+
 
 export const authLogoutRoute = new Elysia({
   detail: {
@@ -25,10 +28,7 @@ export const authLogoutRoute = new Elysia({
     accessToken.remove()
     refreshToken.remove()
 
-    return {
-      success: true,
-      message: "successfully logged out",
-      data: null
-    }
+    return ApiResponse(null)
   }, {
+    response: authLogoutResSchema
   })
