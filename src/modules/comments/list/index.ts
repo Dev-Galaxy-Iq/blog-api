@@ -1,9 +1,17 @@
 import Elysia from "elysia";
+import { listCommentsParamsSchema } from "./model";
+import { listCommentsService } from "./service";
 
-export const addCommentRoute = new Elysia({
+export const listCommentsRoute = new Elysia({
   detail: {
-    summary: "refresh"
+    summary: "list",
+    description: 'list comments of a post'
   }
 })
+  .get("/:postId", ({ params }) => {
+    return listCommentsService(params)
+  }, {
+    params: listCommentsParamsSchema
+  })
 
 
