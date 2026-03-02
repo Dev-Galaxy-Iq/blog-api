@@ -5,7 +5,7 @@ import { auth_plugin } from "../../../plugins/auth-plugin";
 
 export const postsUpdateEndpoint = new Elysia({
   detail: {
-    summary: "update posts ",
+    summary: "update",
   }
 }).use(auth_plugin).patch('/:postId', ({ params, body, user }) => {
   return updatePostSerivce(params, body, user.id);

@@ -13,6 +13,6 @@ export const commentsRoutes = new Elysia({
 })
   .use(addCommentRoute)
   .use(listCommentsRoute)
-  .use(removeCommentRoute)
   .use(showCommentRoute)
   .use(updateCommentRoute)
+  .use(removeCommentRoute)

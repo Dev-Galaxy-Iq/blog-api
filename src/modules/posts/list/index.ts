@@ -4,7 +4,7 @@ import { listPostsQueryParams } from "./model";
 
 export const postsListEndpoint = new Elysia({
   detail: {
-    summary: "list posts"
+    summary: "list"
   }
 })
   .get("/", ({ query }) => {

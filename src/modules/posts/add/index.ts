@@ -5,7 +5,7 @@ import { auth_plugin } from "../../../plugins/auth-plugin";
 
 export const postsAddEndpoint = new Elysia({
   detail: {
-    summary: "add new post"
+    summary: "add"
   }
 })
   .use(auth_plugin)

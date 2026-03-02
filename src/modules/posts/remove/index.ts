@@ -5,7 +5,7 @@ import { removePostService } from "./service";
 
 export const postsRemoveEndpoint = new Elysia({
   detail: {
-    summary: "remove post"
+    summary: "remove"
   }
 })
   .use(auth_plugin)

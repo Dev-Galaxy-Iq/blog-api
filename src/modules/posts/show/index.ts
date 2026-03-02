@@ -4,7 +4,7 @@ import { showPostService } from "./service";
 
 export const postsShowEndpoint = new Elysia({
   detail: {
-    summary: "show post details"
+    summary: "show"
   }
 })
   .get("/:postId", ({ params }) => {
