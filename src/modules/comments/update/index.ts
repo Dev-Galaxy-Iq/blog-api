@@ -1,7 +1,9 @@
 import Elysia from "elysia";
-import { updateCommentBodySchema, updateCommentParamsSchema } from "./model";
+import { updateCommentBodySchema, updateCommentParamsSchema, updateCommentResSchema } from "./model";
 import { auth_plugin } from "../../../plugins/auth-plugin";
 import { updateCommentService } from "./service";
+import { ResponseSchema } from "../../../lib/global-response";
+import { CommonErrors } from "../../../lib/global-error";
 
 export const updateCommentRoute = new Elysia({
   detail: {
@@ -13,5 +15,9 @@ export const updateCommentRoute = new Elysia({
     return updateCommentService(params, body, user.id)
   }, {
     params: updateCommentParamsSchema,
-    body: updateCommentBodySchema
+    body: updateCommentBodySchema,
+    response: {
+      200: ResponseSchema(updateCommentResSchema),
+      ...CommonErrors
+    }
   })

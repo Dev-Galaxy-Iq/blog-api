@@ -1,7 +1,9 @@
 import Elysia from "elysia";
 import { auth_plugin } from "../../../plugins/auth-plugin";
-import { removePostParamsSchema } from "./model";
+import { removePostParamsSchema, removePostResSchema } from "./model";
 import { removePostService } from "./service";
+import { ResponseSchema } from "../../../lib/global-response";
+import { CommonErrors } from "../../../lib/global-error";
 
 export const postsRemoveEndpoint = new Elysia({
   detail: {
@@ -12,5 +14,9 @@ export const postsRemoveEndpoint = new Elysia({
   .delete("/:postId", ({ user, params }) => {
     return removePostService(params, user.id)
   }, {
-    params: removePostParamsSchema
+    params: removePostParamsSchema,
+    response: {
+      200: ResponseSchema(removePostResSchema),
+      ...CommonErrors
+    }
   })

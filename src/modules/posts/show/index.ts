@@ -1,6 +1,8 @@
 import Elysia from "elysia";
-import { showPostParamsSchema } from "./model";
+import { showPostParamsSchema, showPostResSchema } from "./model";
 import { showPostService } from "./service";
+import { ResponseSchema } from "../../../lib/global-response";
+import { CommonErrors } from "../../../lib/global-error";
 
 export const postsShowEndpoint = new Elysia({
   detail: {
@@ -10,5 +12,9 @@ export const postsShowEndpoint = new Elysia({
   .get("/:postId", ({ params }) => {
     return showPostService(params)
   }, {
-    params: showPostParamsSchema
+    params: showPostParamsSchema,
+    response: {
+      200: ResponseSchema(showPostResSchema),
+      ...CommonErrors
+    }
   })
