@@ -1,3 +1,5 @@
+import { t } from "elysia";
+
 /**
  * Error Status Codes:
  * - 400 Bad Request: Invalid request syntax/parameters
@@ -20,3 +22,19 @@ export class ApiError extends Error {
   }
 }
 
+export const ErrorResponse = () =>
+  t.Object({
+    success: t.Literal(false),
+    message: t.String(),
+    data: t.Null()
+  });
+
+export const CommonErrors = {
+  400: ErrorResponse(),
+  401: ErrorResponse(),
+  403: ErrorResponse(),
+  404: ErrorResponse(),
+  409: ErrorResponse(),
+  422: ErrorResponse(),
+  500: ErrorResponse()
+};

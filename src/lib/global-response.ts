@@ -23,9 +23,12 @@ export const ApiResponse = <T>(
  * @param data - TSchema for response data
  * @returns Schema for {success, message, data}
  */
-export const ResponseSchema = (data: TSchema) =>
+export const ResponseSchema = (data: TSchema) => (
   t.Object({
-    success: t.Boolean(),
+    success: t.Boolean({
+      default: true
+    }),
     message: t.String(),
     data
-  });
+  })
+)

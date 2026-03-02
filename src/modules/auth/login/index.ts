@@ -2,13 +2,14 @@ import Elysia, { t } from "elysia";
 import { authLoginService } from "./service";
 import { authLoginReqBodySchema, authLoginResSchema } from "./model";
 import jwt from "@elysiajs/jwt";
-import { ApiError } from "../../../lib/global-error";
+import { ApiError, CommonErrors } from "../../../lib/global-error";
 import { ApiResponse } from "../../../lib/global-response";
 
 export const authLoginRoute = new Elysia({
   detail: {
     summary: "login",
-    operationId: "authLogin"
+    operationId: "authLogin",
+    description: 'login users to thier account'
   }
 })
   .use(
@@ -64,5 +65,8 @@ export const authLoginRoute = new Elysia({
     return ApiResponse(res)
   }, {
     body: authLoginReqBodySchema,
-    response: authLoginResSchema
+    response: {
+      200: authLoginResSchema,
+      ...CommonErrors
+    }
   })

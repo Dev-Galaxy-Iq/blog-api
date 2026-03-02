@@ -3,11 +3,13 @@ import jwt from "@elysiajs/jwt";
 import { auth_plugin } from "../../../plugins/auth-plugin";
 import { ApiResponse } from "../../../lib/global-response";
 import { authMeResSchema } from "./model";
+import { CommonErrors } from "../../../lib/global-error";
 
 export const authMeRoute = new Elysia({
   detail: {
     summary: "me",
-    operationId: "authMe"
+    operationId: "authMe",
+    description: 'get current logged in user details'
   }
 })
   .use(
@@ -26,5 +28,6 @@ export const authMeRoute = new Elysia({
   .post("/me", ({ user }) => {
     return ApiResponse(user)
   }, {
-    response: authMeResSchema
+    response: authMeResSchema,
+    ...CommonErrors
   })

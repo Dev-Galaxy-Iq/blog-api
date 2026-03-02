@@ -3,12 +3,14 @@ import jwt from "@elysiajs/jwt";
 import { auth_plugin } from "../../../plugins/auth-plugin";
 import { authLogoutResSchema } from "./model";
 import { ApiResponse, ResponseSchema } from "../../../lib/global-response"
+import { CommonErrors } from "../../../lib/global-error";
 
 
 export const authLogoutRoute = new Elysia({
   detail: {
     summary: "Logout",
-    operationId: 'authLogout'
+    operationId: 'authLogout',
+    description: 'logout user from the account'
   }
 })
   .use(
@@ -31,5 +33,6 @@ export const authLogoutRoute = new Elysia({
 
     return ApiResponse(null)
   }, {
-    response: authLogoutResSchema
+    response: authLogoutResSchema,
+    ...CommonErrors
   })
