@@ -1,9 +1,12 @@
 import { t, Static } from "elysia";
 
 export const listCommentsParamsSchema = t.Object({
-  postId: t.String({
+  postId: t.Optional(t.String({
     format: "uuid"
-  })
+  })),
+  userId: t.Optional(t.String({
+    format: "uuid"
+  }))
 })
 
 

@@ -5,10 +5,14 @@ import { listCommentsParamsSchemaTypes } from "./model";
 
 export const listCommentsService = async (params: listCommentsParamsSchemaTypes) => {
 
+  // make sure eathier userid or postid is given, one of them should be there
+  if (!params.userId && !params.postId) throw new ApiError("eathier postid or userid is required, provide one of them and try again.", 422)
+
   // check if the post exists
   const post = await db.post.findFirst({
     where: {
-      id: params.postId
+      id: params.postId,
+      authorId: params.userId
     }
   })
 
