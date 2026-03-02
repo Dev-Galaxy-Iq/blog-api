@@ -6,7 +6,8 @@ import { authMeResSchema } from "./model";
 
 export const authMeRoute = new Elysia({
   detail: {
-    summary: "me"
+    summary: "me",
+    operationId: "authMe"
   }
 })
   .use(

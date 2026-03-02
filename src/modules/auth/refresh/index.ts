@@ -7,7 +7,8 @@ import { authRefreshResSchema } from "./model";
 
 export const authRefreshRoute = new Elysia({
   detail: {
-    summary: "refresh"
+    summary: "refresh",
+    operationId: "authRefreshTokens"
   }
 })
   .use(

@@ -7,7 +7,8 @@ import { ApiResponse } from "../../../lib/global-response";
 
 export const authLoginRoute = new Elysia({
   detail: {
-    summary: "login"
+    summary: "login",
+    operationId: "authLogin"
   }
 })
   .use(

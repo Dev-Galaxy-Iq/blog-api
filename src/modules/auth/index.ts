@@ -8,7 +8,8 @@ import { authRefreshRoute } from "./refresh";
 export const authRoutes = new Elysia({
   prefix: "/auth", detail: {
     description: "Auth Endpoints",
-    tags: ["auth"]
+    tags: ["auth"],
+    operationId: 'auth'
   }
 })
   .use(authLoginRoute)

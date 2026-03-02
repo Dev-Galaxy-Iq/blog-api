@@ -5,7 +5,8 @@ import { authRegisterBodySchema, authRegisterResSchema } from "./model";
 
 export const authRegisterRoute = new Elysia({
   detail: {
-    summary: "register"
+    summary: "register",
+    operationId: 'authRegister',
   }
 })
   .post("/register", ({ body }) => {

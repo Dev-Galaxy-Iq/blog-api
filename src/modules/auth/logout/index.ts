@@ -7,7 +7,8 @@ import { ApiResponse, ResponseSchema } from "../../../lib/global-response"
 
 export const authLogoutRoute = new Elysia({
   detail: {
-    summary: "Logout"
+    summary: "Logout",
+    operationId: 'authLogout'
   }
 })
   .use(

@@ -14,7 +14,7 @@ export const authLoginService = async (data: authLoginReqBodySchemaType) => {
 
   // compare the password with the db password
   const isMatching = await Bun.password.verify(data.password, user.password)
-  if (!isMatching) throw new ApiError("invalid credentials!", 403)
+  if (!isMatching) throw new ApiError("invalid credentials!", 401)
 
   // the password is matching so return the user data
   return {
