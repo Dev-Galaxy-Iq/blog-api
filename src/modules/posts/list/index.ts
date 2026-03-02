@@ -6,7 +6,9 @@ import { CommonErrors } from "../../../lib/global-error";
 
 export const postsListEndpoint = new Elysia({
   detail: {
-    summary: "list"
+    summary: "list",
+    description: "list posts",
+    operationId: "listPosts"
   }
 })
   .get("/", ({ query }) => {

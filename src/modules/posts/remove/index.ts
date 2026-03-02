@@ -7,7 +7,9 @@ import { CommonErrors } from "../../../lib/global-error";
 
 export const postsRemoveEndpoint = new Elysia({
   detail: {
-    summary: "remove"
+    summary: "remove",
+    description: "remove post",
+    operationId: "removePost"
   }
 })
   .use(auth_plugin)

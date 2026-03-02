@@ -8,6 +8,8 @@ import { CommonErrors } from "../../../lib/global-error";
 export const postsUpdateEndpoint = new Elysia({
   detail: {
     summary: "update",
+    description: "update post",
+    operationId: "updatePost"
   }
 }).use(auth_plugin).patch('/:postId', ({ params, body, user }) => {
   return updatePostSerivce(params, body, user.id);

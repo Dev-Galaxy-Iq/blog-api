@@ -6,7 +6,9 @@ import { CommonErrors } from "../../../lib/global-error";
 
 export const postsShowEndpoint = new Elysia({
   detail: {
-    summary: "show"
+    summary: "show",
+    description: "show post",
+    operationId: "showPost"
   }
 })
   .get("/:postId", ({ params }) => {
