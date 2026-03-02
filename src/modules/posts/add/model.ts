@@ -10,7 +10,7 @@ export const addPostResSchema = t.Object({
   id: t.String({ format: "uuid" }),
   title: t.String(),
   content: t.String(),
-  thumbnailUrl: t.String(),
+  thumbnailUrl: t.Nullable(t.String()),
   authorId: t.String({ format: "uuid" }),
   createdAt: t.Date(),
   updatedAt: t.Date()
