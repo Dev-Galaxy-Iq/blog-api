@@ -1,12 +1,12 @@
 import { Static, t } from "elysia";
 
-export const addCommentParamsSchema = t.Object({
-  postId: t.String()
+export const updateCommentParamsSchema = t.Object({
+  commentId: t.Number()
 })
 
-export const addCommentBodySchema = t.Object({
-  content: t.String()
+export const updateCommentBodySchema = t.Object({
+  message: t.String()
 })
 
-export type addCommentParamsSchemaType = Static<typeof addCommentParamsSchema>
-export type addCommentBodySchemaType = Static<typeof addCommentBodySchema>
+export type updateCommentParamsSchemaType = Static<typeof updateCommentParamsSchema>
+export type updateCommentBodySchemaType = Static<typeof updateCommentBodySchema>

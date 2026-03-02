@@ -1,7 +1,7 @@
 import Elysia from "elysia";
-import { addCommentBodySchema, addCommentParamsSchema } from "../update/model";
 import { addCommentSerivce } from "./service";
 import { auth_plugin } from "../../../plugins/auth-plugin";
+import { addCommentBodySchema, addCommentParamsSchema } from "./model";
 
 export const addCommentRoute = new Elysia({
   detail: {

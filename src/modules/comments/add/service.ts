@@ -1,7 +1,7 @@
 import { db } from "../../../lib/db";
 import { ApiError } from "../../../lib/global-error";
 import { ApiResponse } from "../../../lib/global-response";
-import { addCommentBodySchemaType, addCommentParamsSchemaType } from "../update/model";
+import { addCommentBodySchemaType, addCommentParamsSchemaType } from "./model";
 
 export const addCommentSerivce = async (params: addCommentParamsSchemaType, body: addCommentBodySchemaType, userId: string | undefined) => {
   if (!userId) throw new ApiError("not autherized", 500)
