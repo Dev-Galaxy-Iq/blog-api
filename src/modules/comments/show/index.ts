@@ -1,6 +1,8 @@
 import Elysia from "elysia";
-import { showCommentParamsSchema } from "./model";
+import { showCommentParamsSchema, showCommentResSchema } from "./model";
 import { showCommentService } from "./service";
+import { ResponseSchema } from "../../../lib/global-response";
+import { CommonErrors } from "../../../lib/global-error";
 
 export const showCommentRoute = new Elysia({
   detail: {
@@ -10,5 +12,9 @@ export const showCommentRoute = new Elysia({
   .get("/show/:commentId", ({ params }) => {
     return showCommentService(params)
   }, {
-    params: showCommentParamsSchema
+    params: showCommentParamsSchema,
+    response: {
+      200: ResponseSchema(showCommentResSchema),
+      ...CommonErrors
+    }
   })
