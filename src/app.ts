@@ -8,7 +8,7 @@ import { allRoutes } from "./modules";
 const app = new Elysia()
   .use(cors({
     origin: "*",
-    credentials: true
+    credentials: true,
   }))
   .error({
     ApiError
