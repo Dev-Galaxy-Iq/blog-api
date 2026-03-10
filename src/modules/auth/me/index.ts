@@ -28,6 +28,8 @@ export const authMeRoute = new Elysia({
   .post("/me", ({ user }) => {
     return ApiResponse(user)
   }, {
-    response: authMeResSchema,
-    ...CommonErrors
+    response: {
+      200: authMeResSchema,
+      ...CommonErrors
+    }
   })

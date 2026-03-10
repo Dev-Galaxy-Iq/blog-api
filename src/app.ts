@@ -4,13 +4,18 @@ import openapi from "@elysiajs/openapi";
 import cors from "@elysiajs/cors";
 import { ApiError } from "./lib/global-error";
 import { allRoutes } from "./modules";
+import { logger } from "@bogeychan/elysia-logger";
 
 const app = new Elysia()
   .use(cors({
     origin: "*",
     credentials: true,
   }))
-  .error({
+  .use(
+    logger({
+      level: "error",
+    })
+  ).error({
     ApiError
   })
 
