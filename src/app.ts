@@ -8,10 +8,9 @@ import { logger } from "@bogeychan/elysia-logger";
 
 const app = new Elysia()
   .use(cors({
-    origin: "*",
+    origin: 'http://localhost:3000',
     credentials: true,
-  }))
-  .use(
+  })).use(
     logger({
       level: "error",
     })
@@ -38,19 +37,7 @@ app.onError(({ error, set, code }) => {
 })
 
   .use(allRoutes)
-  .use(openapi({
-    documentation: {
-      components: {
-        securitySchemes: {
-          bearerAuth: {
-            type: 'http',
-            scheme: 'bearer',
-            bearerFormat: 'JWT'
-          }
-        }
-      }
-    }
-  }))
+  .use(openapi())
   .listen(4000);
 
 console.log(
