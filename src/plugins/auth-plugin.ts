@@ -19,13 +19,17 @@ export const auth_plugin = (app: Elysia) => app
       exp: "7d"
     })
   )
-  .derive(async ({ accesstokenjwt, cookie: { access_token, refresh_token } }) => {
+  .derive(async ({ accesstokenjwt, headers }) => {
+    const auth = headers['authorization']
+    if (!auth?.startsWith('Bearer ')) throw new ApiError("Unauthernized", 401)
+
+    const accessToken = auth.split(' ')[1]
 
     // check if the access token cookie exists
-    if (!access_token) throw new ApiError("Unauthernized request", 401)
+    if (!accessToken) throw new ApiError("Unauthernized request", 401)
     // if it exists then check if its valid
 
-    const isValid = await accesstokenjwt.verify(access_token.value?.toString())
+    const isValid = await accesstokenjwt.verify(accessToken)
 
     // the access token jwt is not valid
     if (!isValid) throw new ApiError("Unauthernized", 401)
@@ -38,13 +42,11 @@ export const auth_plugin = (app: Elysia) => app
 
 
 
+    console.log(user)
+
     return {
       user: {
         ...user, password: undefined
-      },
-      cookies: {
-        accessToken: access_token,
-        refreshToken: refresh_token
       }
     }
   })

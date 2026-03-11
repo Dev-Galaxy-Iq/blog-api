@@ -38,7 +38,19 @@ app.onError(({ error, set, code }) => {
 })
 
   .use(allRoutes)
-  .use(openapi())
+  .use(openapi({
+    documentation: {
+      components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT'
+          }
+        }
+      }
+    }
+  }))
   .listen(4000);
 
 console.log(
