@@ -25,7 +25,7 @@ export const removePostService = async (params: removePostParamsSchemaType, user
     }
   })
 
-  if (removing.id) throw new ApiError("error while trying to remove the post", 500)
+  if (!removing.id) throw new ApiError("error while trying to remove the post", 500)
 
   return ApiResponse(removing)
 }
