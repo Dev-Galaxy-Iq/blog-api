@@ -12,18 +12,13 @@ export const authLoginReqBodySchema = t.Object({
   }),
 })
 
-const userSchema = t.Object({
-  id: t.String({ format: "uuid" }),
-  email: t.String({ format: "email" }),
-  name: t.String(),
-  username: t.String(),
-  avatarUrl: t.Nullable(t.String()),
-  createdAt: t.Date({}),
-  updatedAt: t.Date({})
+const tokensSchema = t.Object({
+  accessToken: t.String(),
+  refreshToken: t.String()
 })
 
 export const authLoginResSchema = ResponseSchema({
-  ...userSchema
+  ...tokensSchema
 })
 
 export type authLoginReqBodySchemaType = Static<typeof authLoginReqBodySchema>

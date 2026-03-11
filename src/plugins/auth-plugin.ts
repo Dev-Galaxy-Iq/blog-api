@@ -27,7 +27,6 @@ export const auth_plugin = (app: Elysia) => app
 
     const isValid = await accesstokenjwt.verify(access_token.value?.toString())
 
-    console.log(isValid);
     // the access token jwt is not valid
     if (!isValid) throw new ApiError("Unauthernized", 401)
 

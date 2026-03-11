@@ -26,7 +26,7 @@ export const authLoginRoute = new Elysia({
       exp: "7d"
     })
   )
-  .post("/login", async ({ body, set, refreshtokenjwt, accesstokenjwt, cookie: { access_token, refresh_token } }) => {
+  .post("/login", async ({ body, refreshtokenjwt, accesstokenjwt }) => {
     const res = await authLoginService(body)
 
     const at_jwt = await accesstokenjwt.sign({
@@ -38,31 +38,10 @@ export const authLoginRoute = new Elysia({
 
     if (!at_jwt || !rt_jwt) throw new ApiError("error while signing access,refresh tokens", 500)
 
-    access_token.set({
-      value: at_jwt,
-      httpOnly: true,
-      path: '/',
-      domain: "",
-      secure: true,
-      maxAge: 60 * 15,
-      sameSite: "strict"
+    return ApiResponse({
+      accessToken: at_jwt,
+      refreshToken: rt_jwt
     })
-
-    refresh_token.set({
-      value: rt_jwt,
-      httpOnly: true,
-      domain: "",
-      secure: true,
-      path: '/',
-      maxAge: 60 * 60 * 24 * 7,
-      sameSite: "strict"
-    })
-
-    // FIX: Manually force JSON content type to override the string-fallback bug
-    set.headers['content-type'] = 'application/json; charset=utf-8'
-
-
-    return ApiResponse(res)
   }, {
     body: authLoginReqBodySchema,
     response: {
