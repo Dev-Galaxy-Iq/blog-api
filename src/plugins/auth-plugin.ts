@@ -19,35 +19,22 @@ export const auth_plugin = (app: Elysia) => app
       exp: "7d"
     })
   )
-  .derive(async ({ accesstokenjwt, headers }) => {
-    const auth = headers['authorization']
-    if (!auth?.startsWith('Bearer ')) throw new ApiError("Unauthernized", 401)
+  .derive(async ({ accesstokenjwt, cookie: { accessToken } }) => {
+    const at = accessToken.value
 
-    const accessToken = auth.split(' ')[1]
+    if (!at) throw new ApiError("Unauthorized request ...", 401)
 
-    // check if the access token cookie exists
-    if (!accessToken) throw new ApiError("Unauthernized request", 401)
-    // if it exists then check if its valid
+    // @ts-ignore
+    const isValid = await accesstokenjwt.verify(at)
 
-    const isValid = await accesstokenjwt.verify(accessToken)
 
-    // the access token jwt is not valid
-    if (!isValid) throw new ApiError("Unauthernized", 401)
+    if (!isValid) throw new ApiError("Unauthorized", 401)
 
     const user = await db.user.findFirst({
-      where: {
-        id: isValid.sub
-      },
+      where: { id: isValid.sub }
     })
 
-
-
-    console.log(user)
-
     return {
-      user: {
-        ...user, password: undefined
-      }
+      user: { ...user, password: undefined }
     }
   })
-

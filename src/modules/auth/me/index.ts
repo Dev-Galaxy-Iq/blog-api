@@ -25,7 +25,7 @@ export const authMeRoute = new Elysia({
     })
   )
   .use(auth_plugin)
-  .post("/me", ({ user }) => {
+  .get("/me", ({ user }) => {
     return ApiResponse(user)
   }, {
     response: {
