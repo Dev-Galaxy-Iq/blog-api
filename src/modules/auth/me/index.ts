@@ -1,10 +1,35 @@
 import Elysia from "elysia";
-import { authMeBodySchema } from "./model";
-import { authMeService } from "./service";
+import jwt from "@elysiajs/jwt";
+import { auth_plugin } from "../../../plugins/auth-plugin";
+import { ApiResponse } from "../../../lib/global-response";
+import { authMeResSchema } from "./model";
+import { CommonErrors } from "../../../lib/global-error";
 
-export const authMeRoute = new Elysia()
-  .post("/me", ({ body }) => {
-    return authMeService()
+export const authMeRoute = new Elysia({
+  detail: {
+    summary: "me",
+    operationId: "authMe",
+    description: 'get current logged in user details'
+  }
+})
+  .use(
+    jwt({
+      name: 'accesstokenjwt',
+      secret: Bun.env.ACCESS_SECERET!
+    })
+  )
+  .use(
+    jwt({
+      name: 'refreshtokenjwt',
+      secret: Bun.env.REFRESH_SECERET!
+    })
+  )
+  .use(auth_plugin)
+  .get("/me", ({ user }) => {
+    return ApiResponse(user)
   }, {
-    body: authMeBodySchema
+    response: {
+      200: authMeResSchema,
+      ...CommonErrors
+    }
   })

@@ -1,10 +1,22 @@
 import Elysia from "elysia";
-import { loginReqBodySchema } from "./model";
-import { authLoginService } from "./service";
+import { authRegisterService } from "./service";
+import { authRegisterBodySchema, authRegisterResSchema } from "./model";
+import { CommonErrors } from "../../../lib/global-error";
 
-export const authRegisterRoute = new Elysia()
-  .post("/post", ({ body }) => {
-    return authLoginService()
+
+export const authRegisterRoute = new Elysia({
+  detail: {
+    summary: "register",
+    operationId: 'authRegister',
+    description: "register new account"
+  }
+})
+  .post("/register", ({ body }) => {
+    return authRegisterService(body)
   }, {
-    body: loginReqBodySchema
+    body: authRegisterBodySchema,
+    response: authRegisterResSchema,
+    ...CommonErrors
   })
+
+

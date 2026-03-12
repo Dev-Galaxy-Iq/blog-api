@@ -1,14 +1,42 @@
 import { Elysia } from "elysia";
-import cors from "@elysiajs/cors";
+
 import openapi from "@elysiajs/openapi";
-import { authRoutes } from "./modules/auth";
+import cors from "@elysiajs/cors";
+import { ApiError } from "./lib/global-error";
+import { allRoutes } from "./modules";
+import { logger } from "@bogeychan/elysia-logger";
 
 const app = new Elysia()
   .use(cors({
-    origin: "*",
-    credentials: true
-  }))
-  .use(authRoutes)
+    origin: 'http://localhost:3000',
+    credentials: true,
+  })).use(
+    logger({
+      level: "error",
+    })
+  ).error({
+    ApiError
+  })
+
+// for reference : https://elysiajs.com/patterns/error-handling
+app.onError(({ error, set, code }) => {
+
+  if (code === "VALIDATION") return {
+    success: false,
+    message: error.all.map(i => i.summary).join(", "),
+    data: null
+  }
+
+  if (error instanceof ApiError) {
+    set.status = error.code;
+    return { success: false, message: error.message, data: null };
+  }
+  set.status = 500;
+
+  return { success: false, message: "Internal server error", data: null };
+})
+
+  .use(allRoutes)
   .use(openapi())
   .listen(4000);
 
