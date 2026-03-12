@@ -20,5 +20,9 @@ export const updatePostSerivce = async (params: updatePostParamsSchemaType, body
     }, data: body
   })
 
-  return ApiResponse(updatedPost);
+  return ApiResponse({
+    ...updatedPost,
+    createdAt: updatedPost.createdAt.toISOString(),
+    updatedAt: updatedPost.updatedAt.toISOString(),
+  })
 }

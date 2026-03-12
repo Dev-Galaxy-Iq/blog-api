@@ -11,7 +11,12 @@ export const showPostService = async (params: showPostParamsSchemaType) => {
   })
 
 
+
   if (!post?.id) throw new ApiError("this post doesnt exits", 401)
 
-  return ApiResponse(post)
+  return ApiResponse({
+    ...post,
+    createdAt: post.createdAt.toISOString(),
+    updatedAt: post.updatedAt.toISOString(),
+  })
 }
