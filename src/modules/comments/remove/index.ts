@@ -7,7 +7,8 @@ import { CommonErrors } from "../../../lib/global-error";
 
 export const removeCommentRoute = new Elysia({
   detail: {
-    summary: "remove"
+    summary: "remove",
+    operationId: "removeComment"
   }
 })
   .use(auth_plugin)

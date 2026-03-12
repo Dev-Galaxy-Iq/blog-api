@@ -7,7 +7,8 @@ import { CommonErrors } from "../../../lib/global-error";
 
 export const updateCommentRoute = new Elysia({
   detail: {
-    summary: "update"
+    summary: "update",
+    operationId: "updateComment"
   }
 })
   .use(auth_plugin)
